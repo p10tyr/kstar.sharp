@@ -13,7 +13,8 @@ namespace kstar.sharp.console
 
     internal class Program
     {
-        private static int REFRESH_SECONDS = 10; //30; //30 seconds is 2880 rows per day, and ~1mln rows per year. SQLite should handle a few billion no problem
+        private static int REFRESH_SECONDS = 5;
+        private static int REFRESH_DATABASE_SAVES_SECONDS = 30; //30; //30 seconds is 2880 rows per day, and ~1mln rows per year. SQLite should handle a few billion no problem
         private static string IP_ADDRESS_INVERTER = "0.0.0.0";
         private static kstar.sharp.datacollect.Client client;
 
@@ -93,7 +94,7 @@ namespace kstar.sharp.console
 
                 await Task.Delay(REFRESH_SECONDS * 1000);
 
-                Console.WriteLine("Send");
+                Console.WriteLine("Refresh...");
             }
         }
 
@@ -141,17 +142,31 @@ namespace kstar.sharp.console
         {
             Console.WriteLine("Publishing MQTT Topics");
 
-            if (!mqttClient.IsConnected)
-                await ConfigureAndConnectMqtt();
-
-            if (!mqttClient.IsConnected)
-                return;
-
             try
             {
+
+                if (!mqttClient.IsConnected)
+                    await ConfigureAndConnectMqtt();
+
+                if (!mqttClient.IsConnected)
+                    return;
+
+                decimal grid_import = 0m;
+                decimal grid_export = 0m;
+                if (inverterDataModel.GridData.GridPower > 0)
+                {
+                    grid_import = inverterDataModel.GridData.GridPower;
+                }
+                else
+                {
+                    grid_export = inverterDataModel.GridData.GridPower * -1;
+                }
+
                 var messages = new List<MqttApplicationMessage>();
                 messages.Add(CreateMqttMessage("sensor/inverter/pvpower", inverterDataModel.PVData.PVPower.ToString()));
                 messages.Add(CreateMqttMessage("sensor/inverter/grid", inverterDataModel.GridData.GridPower.ToString()));
+                messages.Add(CreateMqttMessage("sensor/inverter/grid/import", grid_import.ToString()));
+                messages.Add(CreateMqttMessage("sensor/inverter/grid/export", grid_export.ToString()));
                 messages.Add(CreateMqttMessage("sensor/inverter/load", inverterDataModel.LoadData.LoadPower.ToString()));
                 messages.Add(CreateMqttMessage("sensor/inverter/temp", inverterDataModel.StatData.InverterTemperature.ToString()));
                 messages.Add(CreateMqttMessage("sensor/inverter/etoday", inverterDataModel.StatData.EnergyToday.ToString()));
@@ -161,7 +176,6 @@ namespace kstar.sharp.console
             }
             catch (Exception x)
             {
-
                 Console.WriteLine($"Publishing MQTT Topics - FAILED - ${x.Message}");
             }
 
@@ -190,23 +204,36 @@ namespace kstar.sharp.console
             Console.WriteLine(inverterDataModel.StatData);
             Console.WriteLine(string.Empty);
 
-            PublishSensorTopic(inverterDataModel).GetAwaiter().GetResult();
+            Task.Run(async () => await PublishSensorTopic(inverterDataModel));
 
             if (DateTime.Now >= nextDbSaveTime)
             {
                 Console.WriteLine("Saving DB Entry");
-                nextDbSaveTime = DateTime.Now.AddSeconds(30);
+                nextDbSaveTime = DateTime.Now.AddSeconds(REFRESH_DATABASE_SAVES_SECONDS);
 
+                Task.Run(() => SaveToDb(inverterDataModel));
+            }
+
+        }
+
+        public static void SaveToDb(domain.Models.InverterData inverterDataModel)
+        {
+            try
+            {
                 using (var dbContext = new ef.InverterDataContext(SQL_LITE_CONNECTION_STRING))
                 {
                     Services.DbService db = new Services.DbService(dbContext);
 
                     db.Save(inverterDataModel);
                 }
-
+            }
+            catch (Exception x)
+            {
+                Console.WriteLine($"Saving to DB - FAILED - ${x.Message}");
             }
 
         }
+
 
         private static void parseArguments(string[] args)
         {
