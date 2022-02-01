@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29230.47
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kstar.sharp.sqlite", "kstar.sharp.sqlite\kstar.sharp.sqlite.csproj", "{BF2C4DA6-C306-44F3-AFEC-9CF9FFE78AEA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kstar.sharp.aspnetcore", "kstar.sharp.aspnetcore\kstar.sharp.aspnetcore.csproj", "{6E74F3CE-B119-4703-AA2C-6F5120EAE541}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kstar.sharp.ef", "kstar.sharp.ef\kstar.sharp.ef.csproj", "{292556AE-620F-4E6B-8E78-3377B9492382}"
 EndProject
@@ -28,10 +26,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kstar.sharp.console", "ksta
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kstar.sharp.datacollect", "kstar.sharp.datacollect\kstar.sharp.datacollect.csproj", "{8F52E30A-BF17-4B12-A87B-86D59F32796C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kstar.sharp.blazor", "kstar.sharp.blazor\kstar.sharp.blazor.csproj", "{F93F1EF3-0385-4AFE-B1DE-0F98E4A8A249}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{F9344696-6FD0-458D-9038-8EFB622685B4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,10 +36,6 @@ Global
 		{BF2C4DA6-C306-44F3-AFEC-9CF9FFE78AEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF2C4DA6-C306-44F3-AFEC-9CF9FFE78AEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF2C4DA6-C306-44F3-AFEC-9CF9FFE78AEA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6E74F3CE-B119-4703-AA2C-6F5120EAE541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E74F3CE-B119-4703-AA2C-6F5120EAE541}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E74F3CE-B119-4703-AA2C-6F5120EAE541}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E74F3CE-B119-4703-AA2C-6F5120EAE541}.Release|Any CPU.Build.0 = Release|Any CPU
 		{292556AE-620F-4E6B-8E78-3377B9492382}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{292556AE-620F-4E6B-8E78-3377B9492382}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{292556AE-620F-4E6B-8E78-3377B9492382}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -66,17 +56,9 @@ Global
 		{8F52E30A-BF17-4B12-A87B-86D59F32796C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F52E30A-BF17-4B12-A87B-86D59F32796C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F52E30A-BF17-4B12-A87B-86D59F32796C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F93F1EF3-0385-4AFE-B1DE-0F98E4A8A249}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F93F1EF3-0385-4AFE-B1DE-0F98E4A8A249}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F93F1EF3-0385-4AFE-B1DE-0F98E4A8A249}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F93F1EF3-0385-4AFE-B1DE-0F98E4A8A249}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{6E74F3CE-B119-4703-AA2C-6F5120EAE541} = {F9344696-6FD0-458D-9038-8EFB622685B4}
-		{F93F1EF3-0385-4AFE-B1DE-0F98E4A8A249} = {F9344696-6FD0-458D-9038-8EFB622685B4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {82E4E249-4892-4AAD-833F-0BA1F9B96CB7}
