@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kstar.sharp.console", "ksta
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kstar.sharp.datacollect", "kstar.sharp.datacollect\kstar.sharp.datacollect.csproj", "{8F52E30A-BF17-4B12-A87B-86D59F32796C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kstar.sharp.workerservice", "kstar.sharp.workerservice\kstar.sharp.workerservice.csproj", "{BB6F9C4E-3904-4BF9-B803-CD8B28F6B350}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{8F52E30A-BF17-4B12-A87B-86D59F32796C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F52E30A-BF17-4B12-A87B-86D59F32796C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F52E30A-BF17-4B12-A87B-86D59F32796C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB6F9C4E-3904-4BF9-B803-CD8B28F6B350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB6F9C4E-3904-4BF9-B803-CD8B28F6B350}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB6F9C4E-3904-4BF9-B803-CD8B28F6B350}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB6F9C4E-3904-4BF9-B803-CD8B28F6B350}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
