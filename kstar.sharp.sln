@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kstar.sharp.ef", "kstar.sharp.ef\kstar.sharp.ef.csproj", "{292556AE-620F-4E6B-8E78-3377B9492382}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kstar.sharp", "kstar.sharp\kstar.sharp.csproj", "{5837004B-FDB2-4E39-AE6B-33C362606207}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kstar.sharp.domain", "kstar.sharp.domain\kstar.sharp.domain.csproj", "{C042673C-5265-41F1-BEB3-3029CFAE6782}"
@@ -25,10 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{292556AE-620F-4E6B-8E78-3377B9492382}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{292556AE-620F-4E6B-8E78-3377B9492382}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{292556AE-620F-4E6B-8E78-3377B9492382}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{292556AE-620F-4E6B-8E78-3377B9492382}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5837004B-FDB2-4E39-AE6B-33C362606207}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5837004B-FDB2-4E39-AE6B-33C362606207}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5837004B-FDB2-4E39-AE6B-33C362606207}.Release|Any CPU.ActiveCfg = Release|Any CPU

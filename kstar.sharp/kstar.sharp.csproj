@@ -4,8 +4,4 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\kstar.sharp.ef\kstar.sharp.ef.csproj" />
-  </ItemGroup>
-
 </Project>
