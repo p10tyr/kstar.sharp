@@ -1,5 +1,5 @@
-This repository has been dedeicated to poll for data from a KStar Inverter
-- Hybrid KSE4000 with WiFi, EZMeter and Battery array
+# a KStar Inverter data retriever from WiFi
+Hybrid KSE4000 with WiFi, EZMeter and Battery array
 
 Since 2017 it has undergone many forms and variations but I think the most stable version of this is
 - Collect data (console app or docker)
@@ -7,13 +7,13 @@ Since 2017 it has undergone many forms and variations but I think the most stabl
 
 As of 2023 anything that I dont use has been deleted and the rest has been upgraded to .NET6
 
-##Currently this Repository has these functions##
+## Currently this Repository has these functions
 
  - Core inverter UDP communication read only
  - Parsing bytes/hex to C# Object Models
  
 
-##Disclaimer##
+## Disclaimer
 
 The protocol has been reverse engineered and the goal of this code is for read only use only. 
 I cannot guarantee it will work with all models and I cannot guarantee stability
@@ -21,7 +21,7 @@ For your safety this repository will never implement setting/writting anything b
 Please use the official kstar app for any maintanence required on your inverter.
 
 
-##Tested Inverters##
+## Tested Inverters
 
 Hybrid KSE4000 with WiFi, EZMeter and 10kW Battery array - Stable
 
