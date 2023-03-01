@@ -219,12 +219,6 @@ namespace kstar.sharp.console
                     Console.WriteLine("Set IP address from parameter: " + IP_ADDRESS_INVERTER);
                 }
 
-                if (args[i].StartsWith("--sqlite-"))
-                {
-                    SQL_LITE_CONNECTION_STRING = args[i].Replace("--sqlite-", "");
-                    Console.WriteLine("Set SQLite connection string from parameter: " + SQL_LITE_CONNECTION_STRING);
-                }
-
                 if (args[i].StartsWith("--mqtt-"))
                 {
                     MQTT_CONNECTION_STRING = args[i].Replace("--mqtt-", "");
