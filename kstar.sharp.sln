@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kstar.sharp.sqlite", "kstar.sharp.sqlite\kstar.sharp.sqlite.csproj", "{BF2C4DA6-C306-44F3-AFEC-9CF9FFE78AEA}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kstar.sharp.ef", "kstar.sharp.ef\kstar.sharp.ef.csproj", "{292556AE-620F-4E6B-8E78-3377B9492382}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kstar.sharp", "kstar.sharp\kstar.sharp.csproj", "{5837004B-FDB2-4E39-AE6B-33C362606207}"
@@ -17,16 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{D113B78E
 		kstar-k8.yaml = kstar-k8.yaml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "db", "db", "{2902D1B7-37A3-4266-9B55-714403ED1C4E}"
-	ProjectSection(SolutionItems) = preProject
-		sqlite\inverter-data.db = sqlite\inverter-data.db
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kstar.sharp.console", "kstar.sharp.console\kstar.sharp.console.csproj", "{6E8636E8-98DA-4610-B54E-E7F616CC0F2B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kstar.sharp.datacollect", "kstar.sharp.datacollect\kstar.sharp.datacollect.csproj", "{8F52E30A-BF17-4B12-A87B-86D59F32796C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kstar.sharp.workerservice", "kstar.sharp.workerservice\kstar.sharp.workerservice.csproj", "{BB6F9C4E-3904-4BF9-B803-CD8B28F6B350}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kstar.sharp.workerservice", "kstar.sharp.workerservice\kstar.sharp.workerservice.csproj", "{BB6F9C4E-3904-4BF9-B803-CD8B28F6B350}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,10 +27,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BF2C4DA6-C306-44F3-AFEC-9CF9FFE78AEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF2C4DA6-C306-44F3-AFEC-9CF9FFE78AEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF2C4DA6-C306-44F3-AFEC-9CF9FFE78AEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF2C4DA6-C306-44F3-AFEC-9CF9FFE78AEA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{292556AE-620F-4E6B-8E78-3377B9492382}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{292556AE-620F-4E6B-8E78-3377B9492382}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{292556AE-620F-4E6B-8E78-3377B9492382}.Release|Any CPU.ActiveCfg = Release|Any CPU

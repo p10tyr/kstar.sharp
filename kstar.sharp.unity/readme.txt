@@ -1,1 +1,0 @@
-This project must be loaded using Unity.. not Visual Studio.
