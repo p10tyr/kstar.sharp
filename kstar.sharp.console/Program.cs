@@ -41,20 +41,6 @@ namespace kstar.sharp.console
             //Initialise the client
             client = new sharp.datacollect.Client(IP_ADDRESS_INVERTER);
 
-            //Test database access if SQL String connection added or skip if not
-            if (!string.IsNullOrWhiteSpace(SQL_LITE_CONNECTION_STRING))
-            {
-                using (var dbContext = new sharp.ef.InverterDataContext(SQL_LITE_CONNECTION_STRING))
-                {
-                    kstar.sharp.Services.DbService db = new sharp.Services.DbService(dbContext);
-                    await db.Get(DateTime.Now, DateTime.Now);
-
-                    Console.WriteLine("");
-                    Console.WriteLine("SQLite is accessible");
-                }
-            }
-
-
             // Display some information
             Console.WriteLine("");
             Console.WriteLine("Starting UDP Broadcast");// on port: " + receiverPort);
@@ -84,7 +70,6 @@ namespace kstar.sharp.console
             client.DataRecieved += new kstar.sharp.datacollect.DataRecievedEventHandler(DataRecievedUpdateConsole);
             //while (!(Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape)) //does not work in docker!
 
-            nextDbSaveTime = DateTime.Now.AddSeconds(30);
 
             while (true)  // ctrl+c or sigterm kills this
             {
@@ -200,7 +185,6 @@ namespace kstar.sharp.console
             .Build();
         }
 
-        private static DateTime nextDbSaveTime;
 
         private static void DataRecievedUpdateConsole(domain.Models.InverterData inverterDataModel)
         {
@@ -222,37 +206,8 @@ namespace kstar.sharp.console
 
             Task.Run(async () => await PublishSensorTopic(inverterDataModel));
 
-            if (DateTime.Now >= nextDbSaveTime)
-            {
-                nextDbSaveTime = DateTime.Now.AddSeconds(REFRESH_DATABASE_SAVES_SECONDS);
-                Task.Run(() => SaveToDb(inverterDataModel));
-            }
-
         }
 
-        public static void SaveToDb(domain.Models.InverterData inverterDataModel)
-        {
-            if (string.IsNullOrWhiteSpace(SQL_LITE_CONNECTION_STRING))
-                return;
-
-            if (!SILENT_MODE)
-                Console.WriteLine("Saving DB Entry");
-
-            try
-            {
-                using (var dbContext = new ef.InverterDataContext(SQL_LITE_CONNECTION_STRING))
-                {
-                    Services.DbService db = new Services.DbService(dbContext);
-
-                    db.Save(inverterDataModel);
-                }
-            }
-            catch (Exception x)
-            {
-                Console.WriteLine($"ERROR - Saving to DB - FAILED - ${x.Message}");
-            }
-
-        }
 
         private static void parseArguments(string[] args)
         {
