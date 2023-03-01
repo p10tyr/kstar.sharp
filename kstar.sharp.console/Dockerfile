@@ -1,14 +1,14 @@
 #Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
 #For more information, please see https://aka.ms/containercompat
 
-FROM microsoft/dotnet:2.1-aspnetcore-runtime as base
+FROM mcr.microsoft.com/dotnet/runtime:6.0 AS base
 RUN mkdir /sqlite
 VOLUME /sqlite
 WORKDIR /app
 ENV ASPNETCORE_ENVIRONMENT=Production
 
 
-FROM microsoft/dotnet:2.1-sdk AS builder
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS builder
 ARG Configuration=Release
 WORKDIR /src
 COPY kstar.sharp.console/kstar.sharp.console.csproj kstar.sharp.console/
