@@ -20,6 +20,7 @@ namespace kstar.sharp.console
 
         private static string SQL_LITE_CONNECTION_STRING = "";
         private static string MQTT_CONNECTION_STRING = "";
+        private static bool SILENT_MODE = false;
 
 
         private static IMqttClient mqttClient;
@@ -30,25 +31,29 @@ namespace kstar.sharp.console
 
             parseArguments(args);
 
+            if (string.IsNullOrWhiteSpace(IP_ADDRESS_INVERTER))
+            {
+                Console.WriteLine("You must pass in the Inverters IP address or 0.0.0.0 for broadcast request");
+                Console.ReadLine();
+                return;
+            }
+
             //Initialise the client
             client = new sharp.datacollect.Client(IP_ADDRESS_INVERTER);
 
-
-
-            //test database access
-            using (var dbContext = new sharp.ef.InverterDataContext(SQL_LITE_CONNECTION_STRING))
+            //Test database access if SQL String connection added or skip if not
+            if (!string.IsNullOrWhiteSpace(SQL_LITE_CONNECTION_STRING))
             {
-                kstar.sharp.Services.DbService db = new sharp.Services.DbService(dbContext);
-                db.Get(DateTime.Now, DateTime.Now);
+                using (var dbContext = new sharp.ef.InverterDataContext(SQL_LITE_CONNECTION_STRING))
+                {
+                    kstar.sharp.Services.DbService db = new sharp.Services.DbService(dbContext);
+                    await db.Get(DateTime.Now, DateTime.Now);
 
-                Console.WriteLine("");
-                Console.WriteLine("SQLite is accessible");
+                    Console.WriteLine("");
+                    Console.WriteLine("SQLite is accessible");
+                }
             }
 
-            //Console.WriteLine("Using SQLite Database file : " + db.DatabasePath);
-            //kstar.sharp.Services.DBService.EnsureDatabase();
-
-            //receiver_Communication = new UdpClient(PORT_UDP_Communication);
 
             // Display some information
             Console.WriteLine("");
@@ -59,7 +64,7 @@ namespace kstar.sharp.console
             {
                 Console.WriteLine("Sending Broadcast Request to " + IP_ADDRESS_INVERTER);
                 client.SendBroadcastRequest();
-                System.Threading.Thread.Sleep(2000);
+                Thread.Sleep(2000);
             }
             IP_ADDRESS_INVERTER = client.IPAddressInverter;
             Console.WriteLine("IP Address set to " + IP_ADDRESS_INVERTER);
@@ -68,6 +73,8 @@ namespace kstar.sharp.console
 
             Console.WriteLine("Configuring MQTT");
             Console.WriteLine("-------------------------------\n");
+            if (string.IsNullOrWhiteSpace(MQTT_CONNECTION_STRING))
+                Console.WriteLine("MQTT is disabled because no connection string passed in");
             await ConfigureAndConnectMqtt();
             Console.WriteLine("");
 
@@ -94,7 +101,8 @@ namespace kstar.sharp.console
 
                 await Task.Delay(REFRESH_SECONDS * 1000);
 
-                Console.WriteLine("Refresh...");
+                if (!SILENT_MODE)
+                    Console.WriteLine("Refresh...");
             }
         }
 
@@ -104,6 +112,9 @@ namespace kstar.sharp.console
             var factory = new MqttFactory();
 
             mqttClient = factory.CreateMqttClient();
+
+            if (string.IsNullOrWhiteSpace(MQTT_CONNECTION_STRING))
+                return;
 
             var options = new MqttClientOptionsBuilder()
                 .WithTcpServer(MQTT_CONNECTION_STRING, 1883) // Port is optional
@@ -140,11 +151,11 @@ namespace kstar.sharp.console
 
         private static async Task PublishSensorTopic(domain.Models.InverterData inverterDataModel)
         {
-            Console.WriteLine("Publishing MQTT Topics");
+            if (!SILENT_MODE)
+                Console.WriteLine("Publishing MQTT Topics");
 
             try
             {
-
                 if (!mqttClient.IsConnected)
                     await ConfigureAndConnectMqtt();
 
@@ -171,12 +182,11 @@ namespace kstar.sharp.console
                 messages.Add(CreateMqttMessage("sensor/inverter/temp", inverterDataModel.StatData.InverterTemperature.ToString()));
                 messages.Add(CreateMqttMessage("sensor/inverter/etoday", inverterDataModel.StatData.EnergyToday.ToString()));
 
-
                 await mqttClient.PublishAsync(messages);
             }
             catch (Exception x)
             {
-                Console.WriteLine($"Publishing MQTT Topics - FAILED - ${x.Message}");
+                Console.WriteLine($"ERROR - Publishing MQTT Topics ${x.Message}");
             }
 
         }
@@ -194,23 +204,27 @@ namespace kstar.sharp.console
 
         private static void DataRecievedUpdateConsole(domain.Models.InverterData inverterDataModel)
         {
-            Console.Clear();
-
-            Console.WriteLine(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + " (localtime)");
-            Console.WriteLine(inverterDataModel.PVData);
-            Console.WriteLine(inverterDataModel.GridData);
-            Console.WriteLine(inverterDataModel.LoadData);
-            Console.WriteLine(inverterDataModel.BatteryData);
-            Console.WriteLine(inverterDataModel.StatData);
-            Console.WriteLine(string.Empty);
+            if (SILENT_MODE)
+            {
+                //heartbeat?
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + " (localtime)");
+                Console.WriteLine(inverterDataModel.PVData);
+                Console.WriteLine(inverterDataModel.GridData);
+                Console.WriteLine(inverterDataModel.LoadData);
+                Console.WriteLine(inverterDataModel.BatteryData);
+                Console.WriteLine(inverterDataModel.StatData);
+                Console.WriteLine(string.Empty);
+            }
 
             Task.Run(async () => await PublishSensorTopic(inverterDataModel));
 
             if (DateTime.Now >= nextDbSaveTime)
             {
-                Console.WriteLine("Saving DB Entry");
                 nextDbSaveTime = DateTime.Now.AddSeconds(REFRESH_DATABASE_SAVES_SECONDS);
-
                 Task.Run(() => SaveToDb(inverterDataModel));
             }
 
@@ -218,6 +232,12 @@ namespace kstar.sharp.console
 
         public static void SaveToDb(domain.Models.InverterData inverterDataModel)
         {
+            if (string.IsNullOrWhiteSpace(SQL_LITE_CONNECTION_STRING))
+                return;
+
+            if (!SILENT_MODE)
+                Console.WriteLine("Saving DB Entry");
+
             try
             {
                 using (var dbContext = new ef.InverterDataContext(SQL_LITE_CONNECTION_STRING))
@@ -229,11 +249,10 @@ namespace kstar.sharp.console
             }
             catch (Exception x)
             {
-                Console.WriteLine($"Saving to DB - FAILED - ${x.Message}");
+                Console.WriteLine($"ERROR - Saving to DB - FAILED - ${x.Message}");
             }
 
         }
-
 
         private static void parseArguments(string[] args)
         {
@@ -257,6 +276,14 @@ namespace kstar.sharp.console
                     MQTT_CONNECTION_STRING = args[i].Replace("--mqtt-", "");
                     Console.WriteLine("Set MQTT connection string from parameter: " + MQTT_CONNECTION_STRING);
                 }
+
+                if (args[i].StartsWith("--silent-"))
+                {
+                    SILENT_MODE = true;
+                    Console.WriteLine("Setting silent mode - console output to a minumum (eg, docker)");
+                }
+
+
             }
         }
     }
