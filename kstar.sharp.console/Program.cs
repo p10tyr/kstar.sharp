@@ -14,7 +14,6 @@ namespace kstar.sharp.console
     internal class Program
     {
         private static int REFRESH_SECONDS = 5;
-        private static int REFRESH_DATABASE_SAVES_SECONDS = 30; //30; //30 seconds is 2880 rows per day, and ~1mln rows per year. SQLite should handle a few billion no problem
         private static string IP_ADDRESS_INVERTER = "0.0.0.0";
         private static kstar.sharp.datacollect.Client client;
 
