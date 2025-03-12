@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using kstar.sharp.domain.Enums;
 using kstar.sharp.domain.Extensions;
-using kstar.sharp.domain.Enums;
+using System;
 
 namespace kstar.sharp.domain.Models
 {
@@ -92,7 +87,7 @@ Bat1:{3}% {0}W {4}   {1}V {2}A",
                 Cbat1 = HEXData[33].HexToDecimal();
                 BatMode1 = (BatteryMode)HEXData[37].HexToDecimal(); //2 discharge //3 charge
             }
-            catch (Exception x)
+            catch (Exception)
             {
                 //throw;
             }
@@ -105,7 +100,7 @@ Bat1:{3}% {0}W {4}   {1}V {2}A",
                 Cbat2 = HEXData[34].HexToDecimal();
                 BatMode2 = (BatteryMode)HEXData[38].HexToDecimal();
             }
-            catch (Exception x)
+            catch (Exception)
             {
 
                 //throw;
@@ -119,7 +114,7 @@ Bat1:{3}% {0}W {4}   {1}V {2}A",
                 Cbat3 = HEXData[35].HexToDecimal();
                 BatMode3 = (BatteryMode)HEXData[39].HexToDecimal();
             }
-            catch (Exception x)
+            catch (Exception)
             {
 
                 //throw;
@@ -132,7 +127,7 @@ Bat1:{3}% {0}W {4}   {1}V {2}A",
                 Cbat4 = HEXData[36].HexToDecimal();
                 BatMode4 = (BatteryMode)HEXData[40].HexToDecimal();
             }
-            catch (Exception x)
+            catch (Exception)
             {
 
                 //throw;
