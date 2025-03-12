@@ -21,6 +21,6 @@ options:
 schema:
   IP: str
   MQTT: str
-  SILENT-: bool
+  SILENT: bool
 
 image: "ghcr.io/p10tyr/kstar.sharp"
