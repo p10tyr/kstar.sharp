@@ -14,13 +14,16 @@ environment: {
   "MQTT": "homeassistant",
   "SILENT": "true"
   }
-options:
-  IP: "192.168.1.1"
-  MQTT: "homeassistant"
-  SILENT: true
-schema:
-  IP: str
-  MQTT: str
-  SILENT: bool
+privileged:
+  - NET_ADMIN
+  - NET_RAW
+# options:
+#   IP: "192.168.1.1"
+#   MQTT: "homeassistant"
+#   SILENT: true
+# schema:
+#   IP: str
+#   MQTT: str
+#   SILENT: bool
 
 image: "ghcr.io/p10tyr/kstar.sharp"
