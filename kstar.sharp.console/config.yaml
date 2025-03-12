@@ -20,7 +20,6 @@ privileged:
   - SYS_ADMIN
 ingress: true
 ports: {
-   "0/udp" : 0,
    "9999/udp" : 9999
   }
 
