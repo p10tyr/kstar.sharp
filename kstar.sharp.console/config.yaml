@@ -13,13 +13,10 @@ environment: {
   "IP": "192.168.1.18",
   "MQTT": "homeassistant"
   }
-privileged:
-  - NET_ADMIN
-  - NET_RAW
-#  - SYS_ADMIN
-# ports: {
-#    "8899/udp" : 8899
-#   }
+# privileged:
+#   - NET_ADMIN
+#   - NET_RAW
+
 host_network: true
 # options:
 #   IP: "192.168.1.1"
