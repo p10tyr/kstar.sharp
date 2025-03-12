@@ -11,7 +11,7 @@ arch:
   - i386
 environment: {
   "IP": "192.168.1.18",
-  "MQTT": "homeassistant",
+  "MQTT": "192.168.1.133",
   "SILENT": "true"
   }
 # privileged:
