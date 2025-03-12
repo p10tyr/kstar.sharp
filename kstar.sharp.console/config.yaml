@@ -11,14 +11,9 @@ arch:
   - i386
 environment: {
   "IP": "192.168.1.18",
-  "MQTT": "192.168.1.133",
+  "MQTT": "homeassistant",
   "SILENT": "true"
   }
-# privileged:
-#   - NET_ADMIN
-#   - NET_RAW
-
-# host_network: true
 # options:
 #   IP: "192.168.1.1"
 #   MQTT: "homeassistant"
