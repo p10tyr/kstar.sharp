@@ -183,6 +183,7 @@ namespace kstar.sharp.console
             return new MqttApplicationMessageBuilder()
             .WithTopic(topic)
             .WithPayload(value)
+            .WithQualityOfServiceLevel(MQTTnet.Protocol.MqttQualityOfServiceLevel.AtLeastOnce)
             .Build();
         }
 
