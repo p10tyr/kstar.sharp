@@ -19,8 +19,10 @@ privileged:
   - NET_RAW
   - SYS_ADMIN
 ingress: true
-#ports:
-#  - 8888:8888
+ports:
+  - "0/udp"
+  - "9999/udp"
+
 host_network: true
 full_access: true
 #apparmor: false
