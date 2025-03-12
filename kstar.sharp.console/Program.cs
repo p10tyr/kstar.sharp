@@ -180,11 +180,18 @@ namespace kstar.sharp.console
         }
 
 
+        static int count = 999;
         private static void DataRecievedUpdateConsole(domain.Models.InverterData inverterDataModel)
         {
+            count++;
+
             if (SILENT_MODE)
             {
-                Console.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")} {inverterDataModel.PVData} {inverterDataModel.GridData} {inverterDataModel.LoadData} {inverterDataModel.StatData}");
+                if (count > 100)
+                {
+                    Console.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")} {inverterDataModel.PVData} {inverterDataModel.GridData} {inverterDataModel.LoadData} {inverterDataModel.StatData}");
+                    count = 0;
+                }
             }
             else
             {
