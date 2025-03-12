@@ -13,7 +13,7 @@ namespace kstar.sharp.console
     internal class Program
     {
         private static int REFRESH_SECONDS = 5;
-        private static string IP_ADDRESS_INVERTER = "192.168.1.18";
+        private static string IP_ADDRESS_INVERTER = "0.0.0.0";
         private static kstar.sharp.datacollect.Client client;
 
         //private static string SQL_LITE_CONNECTION_STRING = "";
