@@ -191,7 +191,7 @@ namespace kstar.sharp.console
         {
             if (SILENT_MODE)
             {
-                //heartbeat?
+                Console.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")} {inverterDataModel.PVData} {inverterDataModel.GridData} {inverterDataModel.LoadData} {inverterDataModel.StatData}");
             }
             else
             {
