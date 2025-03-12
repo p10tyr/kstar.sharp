@@ -238,6 +238,15 @@ namespace kstar.sharp.console
         {
             var envVariables = Environment.GetEnvironmentVariables();
 
+
+            Console.WriteLine("---ENV---");
+            foreach (var key in envVariables.Keys)
+            {
+                Console.WriteLine($"{key} {envVariables[key].ToString()}");
+            }
+            Console.WriteLine("---ENV---");
+
+
             if (envVariables.Contains("--ip-"))
             {
                 IP_ADDRESS_INVERTER = envVariables["--ip-"].ToString();
