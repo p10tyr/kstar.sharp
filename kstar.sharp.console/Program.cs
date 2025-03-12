@@ -1,10 +1,9 @@
-﻿using System;
+﻿using MQTTnet;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using MQTTnet;
-using MQTTnet.Client;
-using MQTTnet.Client.Options;
 
 namespace kstar.sharp.console
 {
@@ -29,6 +28,7 @@ namespace kstar.sharp.console
             Console.WriteLine("------------------------");
 
             parseArguments(args);
+            parseEnvironmentVariables(); //supersedes arguments
 
             if (string.IsNullOrWhiteSpace(IP_ADDRESS_INVERTER))
             {
@@ -93,7 +93,7 @@ namespace kstar.sharp.console
 
         private static async Task ConfigureAndConnectMqtt()
         {
-            var factory = new MqttFactory();
+            var factory = new MqttClientFactory();
 
             mqttClient = factory.CreateMqttClient();
 
@@ -166,7 +166,10 @@ namespace kstar.sharp.console
                 messages.Add(CreateMqttMessage("sensor/inverter/temp", inverterDataModel.StatData.InverterTemperature.ToString()));
                 messages.Add(CreateMqttMessage("sensor/inverter/etoday", inverterDataModel.StatData.EnergyToday.ToString()));
 
-                await mqttClient.PublishAsync(messages);
+                messages.Select(async (msg) =>
+                    await mqttClient.PublishAsync(msg)
+                );
+
             }
             catch (Exception x)
             {
@@ -180,7 +183,6 @@ namespace kstar.sharp.console
             return new MqttApplicationMessageBuilder()
             .WithTopic(topic)
             .WithPayload(value)
-            .WithAtMostOnceQoS()
             .Build();
         }
 
@@ -210,7 +212,6 @@ namespace kstar.sharp.console
 
         private static void parseArguments(string[] args)
         {
-
             for (int i = 0; i < args.Length; i++)
             {
                 if (args[i].StartsWith("--ip-"))
@@ -230,9 +231,32 @@ namespace kstar.sharp.console
                     SILENT_MODE = true;
                     Console.WriteLine("Setting silent mode - console output to a minumum (eg, docker)");
                 }
-
-
             }
         }
+
+        private static void parseEnvironmentVariables()
+        {
+            var envVariables = Environment.GetEnvironmentVariables();
+
+            if (envVariables.Contains("--ip-"))
+            {
+                IP_ADDRESS_INVERTER = envVariables["--ip-"].ToString();
+                Console.WriteLine("Set IP address from parameter: " + IP_ADDRESS_INVERTER);
+            }
+
+            if (envVariables.Contains("--mqtt-"))
+            {
+                MQTT_CONNECTION_STRING = envVariables["--mqtt-"].ToString();
+                Console.WriteLine("Set MQTT connection string from parameter: " + MQTT_CONNECTION_STRING);
+            }
+
+            if (envVariables.Contains("--silent-"))
+            {
+                SILENT_MODE = true;
+                Console.WriteLine("Setting silent mode - console output to a minumum (eg, docker)");
+            }
+        }
+
+
     }
 }

@@ -9,8 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kstar.sharp.domain", "kstar
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{D113B78E-BA13-4921-9A3E-2C7EB9E388FB}"
 	ProjectSection(SolutionItems) = preProject
-		build-docker.sh = build-docker.sh
 		build_console_push_docker.cmd = build_console_push_docker.cmd
+		repository.json = repository.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kstar.sharp.console", "kstar.sharp.console\kstar.sharp.console.csproj", "{6E8636E8-98DA-4610-B54E-E7F616CC0F2B}"
