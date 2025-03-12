@@ -27,8 +27,8 @@ namespace kstar.sharp.console
         {
             Console.WriteLine("------------------------");
 
-            parseArguments(args);
-            parseEnvironmentVariables(); //supersedes arguments
+            //parseArguments(args);
+            parseEnvironmentVariables();
 
             if (string.IsNullOrWhiteSpace(IP_ADDRESS_INVERTER))
             {
@@ -210,29 +210,29 @@ namespace kstar.sharp.console
         }
 
 
-        private static void parseArguments(string[] args)
-        {
-            for (int i = 0; i < args.Length; i++)
-            {
-                if (args[i].StartsWith("--ip-"))
-                {
-                    IP_ADDRESS_INVERTER = args[i].Replace("--ip-", "");
-                    Console.WriteLine("Set IP address from parameter: " + IP_ADDRESS_INVERTER);
-                }
+        //private static void parseArguments(string[] args)
+        //{
+        //    for (int i = 0; i < args.Length; i++)
+        //    {
+        //        if (args[i].StartsWith("--ip-"))
+        //        {
+        //            IP_ADDRESS_INVERTER = args[i].Replace("--ip-", "");
+        //            Console.WriteLine("Set IP address from parameter: " + IP_ADDRESS_INVERTER);
+        //        }
 
-                if (args[i].StartsWith("--mqtt-"))
-                {
-                    MQTT_CONNECTION_STRING = args[i].Replace("--mqtt-", "");
-                    Console.WriteLine("Set MQTT connection string from parameter: " + MQTT_CONNECTION_STRING);
-                }
+        //        if (args[i].StartsWith("--mqtt-"))
+        //        {
+        //            MQTT_CONNECTION_STRING = args[i].Replace("--mqtt-", "");
+        //            Console.WriteLine("Set MQTT connection string from parameter: " + MQTT_CONNECTION_STRING);
+        //        }
 
-                if (args[i].StartsWith("--silent-"))
-                {
-                    SILENT_MODE = true;
-                    Console.WriteLine("Setting silent mode - console output to a minumum (eg, docker)");
-                }
-            }
-        }
+        //        if (args[i].StartsWith("--silent-"))
+        //        {
+        //            SILENT_MODE = true;
+        //            Console.WriteLine("Setting silent mode - console output to a minumum (eg, docker)");
+        //        }
+        //    }
+        //}
 
         private static void parseEnvironmentVariables()
         {
@@ -247,19 +247,19 @@ namespace kstar.sharp.console
             Console.WriteLine("---ENV---");
 
 
-            if (envVariables.Contains("--ip-"))
+            if (envVariables.Contains("IP"))
             {
-                IP_ADDRESS_INVERTER = envVariables["--ip-"].ToString();
+                IP_ADDRESS_INVERTER = envVariables["IP"].ToString();
                 Console.WriteLine("Set IP address from parameter: " + IP_ADDRESS_INVERTER);
             }
 
-            if (envVariables.Contains("--mqtt-"))
+            if (envVariables.Contains("MQTT"))
             {
-                MQTT_CONNECTION_STRING = envVariables["--mqtt-"].ToString();
+                MQTT_CONNECTION_STRING = envVariables["MQTT"].ToString();
                 Console.WriteLine("Set MQTT connection string from parameter: " + MQTT_CONNECTION_STRING);
             }
 
-            if (envVariables.Contains("--silent-"))
+            if (envVariables.Contains("SILENT"))
             {
                 SILENT_MODE = true;
                 Console.WriteLine("Setting silent mode - console output to a minumum (eg, docker)");
