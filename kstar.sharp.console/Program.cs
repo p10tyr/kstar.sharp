@@ -1,7 +1,5 @@
 ﻿using MQTTnet;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -157,19 +155,13 @@ namespace kstar.sharp.console
                     grid_export = inverterDataModel.GridData.GridPower * -1;
                 }
 
-                var messages = new List<MqttApplicationMessage>();
-                messages.Add(CreateMqttMessage("sensor/inverter/pvpower", inverterDataModel.PVData.PVPower.ToString()));
-                messages.Add(CreateMqttMessage("sensor/inverter/grid", inverterDataModel.GridData.GridPower.ToString()));
-                messages.Add(CreateMqttMessage("sensor/inverter/grid/import", grid_import.ToString()));
-                messages.Add(CreateMqttMessage("sensor/inverter/grid/export", grid_export.ToString()));
-                messages.Add(CreateMqttMessage("sensor/inverter/load", inverterDataModel.LoadData.LoadPower.ToString()));
-                messages.Add(CreateMqttMessage("sensor/inverter/temp", inverterDataModel.StatData.InverterTemperature.ToString()));
-                messages.Add(CreateMqttMessage("sensor/inverter/etoday", inverterDataModel.StatData.EnergyToday.ToString()));
-
-                messages.Select(async (msg) =>
-                    await mqttClient.PublishAsync(msg)
-                );
-
+                await mqttClient.PublishAsync(CreateMqttMessage("sensor/inverter/pvpower", inverterDataModel.PVData.PVPower.ToString()));
+                await mqttClient.PublishAsync(CreateMqttMessage("sensor/inverter/grid", inverterDataModel.GridData.GridPower.ToString()));
+                await mqttClient.PublishAsync(CreateMqttMessage("sensor/inverter/grid/import", grid_import.ToString()));
+                await mqttClient.PublishAsync(CreateMqttMessage("sensor/inverter/grid/export", grid_export.ToString()));
+                await mqttClient.PublishAsync(CreateMqttMessage("sensor/inverter/load", inverterDataModel.LoadData.LoadPower.ToString()));
+                await mqttClient.PublishAsync(CreateMqttMessage("sensor/inverter/temp", inverterDataModel.StatData.InverterTemperature.ToString()));
+                await mqttClient.PublishAsync(CreateMqttMessage("sensor/inverter/etoday", inverterDataModel.StatData.EnergyToday.ToString()));
             }
             catch (Exception x)
             {
