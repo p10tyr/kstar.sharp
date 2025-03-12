@@ -14,11 +14,14 @@ environment: {
   "MQTT": "homeassistant",
   "SILENT": "true"
   }
-privileged:
-  - NET_ADMIN
-  - NET_RAW
+privileged: [
+  "NET_ADMIN",
+  "NET_RAW",
+  "SYS_ADMIN"
+  ]
 host_network: true
 full_access: true
+apparmor: false
 # options:
 #   IP: "192.168.1.1"
 #   MQTT: "homeassistant"
