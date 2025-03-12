@@ -20,7 +20,7 @@ privileged:
   - SYS_ADMIN
 ingress: true
 ports: {
-   "88999/udp" : 8899
+   "8899/udp" : 8899
   }
 
 host_network: true
