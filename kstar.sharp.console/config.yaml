@@ -17,13 +17,13 @@ privileged:
   - NET_ADMIN
   - NET_RAW
   - SYS_ADMIN
-ingress: true
+#ingress: true
 ports: {
    "8899/udp" : 8899
   }
 
 host_network: true
-full_access: true
+#full_access: true
 # options:
 #   IP: "192.168.1.1"
 #   MQTT: "homeassistant"
