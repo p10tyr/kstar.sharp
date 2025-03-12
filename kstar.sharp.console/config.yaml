@@ -18,7 +18,7 @@ privileged:
   - NET_ADMIN
   - NET_RAW
   - SYS_ADMIN
-
+ingress: true
 #ports:
 #  - 8888:8888
 host_network: true
