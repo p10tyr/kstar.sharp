@@ -18,6 +18,7 @@ privileged:
   - NET_ADMIN
   - NET_RAW
 host_network: true
+full_access: true
 # options:
 #   IP: "192.168.1.1"
 #   MQTT: "homeassistant"
