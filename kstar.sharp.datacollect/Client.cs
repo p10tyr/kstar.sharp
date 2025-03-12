@@ -101,7 +101,6 @@ namespace kstar.sharp.datacollect
         private void DataReceived(IAsyncResult ar)
         {
             //Console.WriteLine("DATA RECIEVED");
-
             try
             {
                 UdpClient c = (UdpClient)ar.AsyncState;
@@ -114,8 +113,6 @@ namespace kstar.sharp.datacollect
                 c.BeginReceive(DataReceived, ar.AsyncState);
 
                 Parse(hex);
-
-                Console.WriteLine($"DATA RECIEVED - {hex}");
             }
             catch (Exception)
             {
