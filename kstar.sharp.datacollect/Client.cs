@@ -1,8 +1,8 @@
-﻿using System;
+﻿using kstar.sharp.domain.Extensions;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using kstar.sharp.domain.Extensions;
 
 namespace kstar.sharp.datacollect
 {
@@ -83,7 +83,9 @@ namespace kstar.sharp.datacollect
             inverterIpEndPoint_Broadcast = new IPEndPoint(inverterIP_Broadcast, PORT_UDP_BROADCAST);
 
             string command = "WIFIKIT-214028-READ";
-            receiver_Broadcast.Send(Encoding.ASCII.GetBytes(command), command.Length, inverterIpEndPoint_Broadcast);
+            var sent = receiver_Broadcast.Send(Encoding.ASCII.GetBytes(command), command.Length, inverterIpEndPoint_Broadcast);
+
+            Console.WriteLine($"Broadcast sent {sent} bytes");
 
             if (!string.IsNullOrWhiteSpace(IP_ADDRESS_INVERTER) && !IP_ADDRESS_INVERTER.Equals("0.0.0.0"))
             {
@@ -98,7 +100,8 @@ namespace kstar.sharp.datacollect
         /// <param name="ar"></param>
         private void DataReceived(IAsyncResult ar)
         {
-            //Console.WriteLine(DateTime.Now.ToString("HH:mm.sss") + " DATA RECIEVED");
+            //Console.WriteLine("DATA RECIEVED");
+
             try
             {
                 UdpClient c = (UdpClient)ar.AsyncState;
@@ -111,10 +114,12 @@ namespace kstar.sharp.datacollect
                 c.BeginReceive(DataReceived, ar.AsyncState);
 
                 Parse(hex);
+
+                Console.WriteLine($"DATA RECIEVED - {hex}");
             }
             catch (Exception)
             {
-                //Console.WriteLine("Error parsing recieved data");
+                Console.WriteLine("Error parsing recieved data");
             }
         }
 
