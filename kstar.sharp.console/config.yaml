@@ -9,4 +9,6 @@ arch:
   - armhf
   - armv7
   - i386
+options:
+  message: "Hello world..."
 image: "ghcr.io/p10tyr/kstar.sharp"
