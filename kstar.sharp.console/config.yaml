@@ -1,5 +1,5 @@
 name: "KStar Sharp - MQTT"
-version: "1.0.0"
+version: "latest"
 slug: "kstar_sharp_mqtt"
 description: "Collect KStar inverter data over WiFi IP and send to MQTT server - Works well with Home Assistant Energy Monitor"
 url: "https://github.com/p10tyr/kstar.sharp"  
