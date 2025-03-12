@@ -9,4 +9,4 @@ arch:
   - armhf
   - armv7
   - i386
-image: "ghcr.io/p10tyr/kstar.sharp:main"
+image: "ghcr.io/p10tyr/kstar.sharp"
