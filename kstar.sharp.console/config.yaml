@@ -9,17 +9,17 @@ arch:
   - armhf
   - armv7
   - i386
-# environment:
-#   --ip-: "192.168.1.18"
+environment:
+    IP: "192.168.1.18"
+    MQTT: "homeassistant"
+    SILENT: true
+# options:
+#   --ip-: "192.168.1.1"
 #   --mqtt-: "homeassistant"
 #   --silent-: true
-options:
-  --ip-: "192.168.1.1"
-  --mqtt-: "homeassistant"
-  --silent-: true
-schema:
-  --ip-: str
-  --mqtt-: str
-  --silent-: bool
+# schema:
+#   --ip-: str
+#   --mqtt-: str
+#   --silent-: bool
 
 image: "ghcr.io/p10tyr/kstar.sharp"
