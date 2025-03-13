@@ -1,0 +1,21 @@
+# vim:syntax=apparmor
+# AppArmor policy for kstar.sharp.console
+# P10TYR
+# MIT
+
+#include <tunables/global>
+
+# No template variables specified
+
+"kstar.sharp.console" {
+  #include <abstractions/base>
+
+  # No abstractions specified
+
+  # No policy groups specified
+
+  # No read paths specified
+
+  # No write paths specified
+}
+
