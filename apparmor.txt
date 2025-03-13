@@ -1,21 +1,39 @@
-# vim:syntax=apparmor
-# AppArmor policy for kstar.sharp.console
-# P10TYR
-# MIT
-
 #include <tunables/global>
-
-# No template variables specified
 
 profile kstar_sharp_mqtt flags=(attach_disconnected,mediate_deleted) {
   #include <abstractions/base>
 
-  # No abstractions specified
+  capability,
+  #file,
+  #signal,
+  #mount,
+  #umount,
+  #remount,
+  network udp,
+  network tcp,
+  network dgram,
+  #network stream,
+  network inet,
+  #network inet6,
+  network netlink raw,
+  network unix dgram,
 
-  # No policy groups specified
+  #capability setgid,
+  #capability setuid,
+  #capability sys_admin,
+  #capability dac_read_search,
+  # capability dac_override,
+  # capability sys_rawio,
 
-  # No read paths specified
 
-  # No write paths specified
+
+  # Data access
+  #/data/** rw,
+
+  # suppress ptrace denials when using 'docker ps' or using 'ps' inside a container
+  #trace (trace,read) peer=docker-default,
+
+  # docker daemon confinement requires explict allow rule for signal
+  signal (receive) set=(kill,term) peer=/usr/bin/docker,
+
 }
-
