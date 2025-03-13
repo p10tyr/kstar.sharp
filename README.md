@@ -1,34 +1,37 @@
 # a KStar Inverter data retriever from WiFi
 
-Written in C# .NET6 - Can run any where with a console and connection to the Inverter over WiFi
+Written in C# .NET8 - Can run any where with a console and connection to the Inverter over WiFi
 
-Tested with Hybrid KSE4000 with WiFi, EZMeter and Battery array for past 6 years.
+Tested with Hybrid KSE4000 with WiFi, EZMeter and Battery array for past 9 years.
 
 
 # Run Me
 
-Pull the Docker image from  (Todo add link)
-- todo create a simple free docker build pipeline
-- todo caputre enviroment varables to configure
+Pull the Docker image from Packages in GitHub
 
-Build locally the console app
-- todo ? a simple build file?
+# Home Assistant
+
+Add reporitory `https://github.com/p10tyr/kstar.sharp` and configure options on the install page of add-ons
+
+## Environment Variables
+Using Enviroment varibales  
 
 ### IP_ADDRESS_INVERTER 
-`--ip-`
+`IP`
 
 If you run this as a console app in native OS it is allowed to send out a broadcast request and the inverter responds to that so you dont need this.
+
 But it is much nicer running this in docker but sadly in docker you need to set the IP as broadbast doesnt work.
 Set your Inverter to a static IP on your home Router (connect the inverter to your Wifi)
 
 
 ### MQTT_CONNECTION_STRING
-`--mqtt-`
+`MQTT`
 
-I think its just the hostname. I have `homeassistant`
+Inisde of Home Assistant it can be `homeassistant` as that is the internal pod DNS name for the MQTT broker. Otherwise another IP or DNS name.
 - port 1833
 - client id `kstar.sharp.console`
-- user:pass `mqtt:mqtt`
+- user:pass `mqtt:mqtt` #add this user to HA
 
 Topics
 - sensor/inverter/pvpower
@@ -42,23 +45,11 @@ Topics
 Set as **AtMostOnceQoS**
 
 ### SILENT_MODE
-`--silent-`
+`SILENT`
 
 If you run this in an interactive console you will get a page update every x seconds.
 In docker this is a lot of noise that gets logged.. we just want errors there and the messages to make thier way over MQTT
 
-
-
-----
-
-Some old stuff
-
-Don't remember what this ia about as I wrote this a long time ago.. seems pretty cool though. (also deleted a lot of nonesense recenlty)
-
-## Currently this Repository has these functions
-
- - Core inverter UDP communication read only
- - Parsing bytes/hex to C# Object Models
  
 
 ## Disclaimer

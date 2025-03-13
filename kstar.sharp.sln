@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{D113B78E
 	ProjectSection(SolutionItems) = preProject
 		apparmor.txt = apparmor.txt
 		build_console_push_docker.cmd = build_console_push_docker.cmd
+		README.md = README.md
 		repository.json = repository.json
 	EndProjectSection
 EndProject
