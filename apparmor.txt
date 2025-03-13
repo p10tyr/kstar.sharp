@@ -7,7 +7,7 @@
 
 # No template variables specified
 
-"kstar.sharp.console" {
+profile kstar_sharp_mqtt flags=(attach_disconnected,mediate_deleted) {
   #include <abstractions/base>
 
   # No abstractions specified
